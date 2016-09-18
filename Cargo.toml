@@ -1,0 +1,13 @@
+[package]
+name    = "pentry"
+version = "0.1.0"
+authors = ["chikuchikugonzalez <chikuchikugonzalez@gmail.com>"]
+
+[dependencies]
+libc    = "0.2.*"
+getopts = "0.2.*"
+
+[target.'cfg(windows)'.dependencies]
+
+[target.'cfg(unix)'.dependencies]
+procinfo = "0.2.*"
