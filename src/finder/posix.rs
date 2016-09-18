@@ -14,11 +14,21 @@ pub struct ProcessEntry {
 pub fn find(pid: i32) -> Result<ProcessEntry, String> {
     match procinfo::pid::stat(pid) {
         Ok(st) => {
-            return Ok(ProcessEntry{
+            let mut entry = ProcessEntry{
                 pid:  st.pid,
                 ppid: st.ppid,
                 path: st.command,
-            });
+            };
+
+            // Resolve Path.
+            let exelink = format!("/proc/{}/exe", st.pid);
+            if let Ok(real) = ::std::fs::canonicalize(exelink) {
+                if let Some(path) = real.to_str() {
+                    entry.path = path.to_string();
+                }
+            }
+
+            return Ok(entry);
         },
         Err(e) => {
             return Err(e.description().to_string());
