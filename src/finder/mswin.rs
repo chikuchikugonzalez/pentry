@@ -1,6 +1,5 @@
 // -*- coding: utf-8 -*-
 // vi: set sts=4 ts=4 sw=4 et ft=rust:
-#[cfg(windows)]
 
 #[allow(non_camel_case_types)]
 mod kernel32 {
@@ -146,15 +145,21 @@ fn query_name(pid: u32) -> Result<String, String> {
     }
 }
 
-pub fn find(pid: i32) -> Result<super::ProcessEntry, String> {
+pub struct ProcessEntry {
+    pub pid:  u32,
+    pub ppid: u32,
+    pub path: String,
+}
+
+pub fn find(pid: i32) -> Result<ProcessEntry, String> {
     match snapshot() {
         Ok(processes) => {
             for ps in processes {
                 if ps.pid == pid as u32 {
                     // Found
-                    let mut entry = super::ProcessEntry{
-                        pid:  ps.pid  as i32,
-                        ppid: ps.ppid as i32,
+                    let mut entry = ProcessEntry{
+                        pid:  ps.pid,
+                        ppid: ps.ppid,
                         path: String::from_utf16_lossy(&ps.file).trim_right_matches(0x00 as char).to_string(),
                     };
 
