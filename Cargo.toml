@@ -1,10 +1,12 @@
 [package]
-name        = "pentry"
-version     = "0.1.0"
-authors     = ["chikuchikugonzalez <chikuchikugonzalez@gmail.com>"]
-description = "Inspect executable of Process."
-repository  = "https://github.com/chikuchikugonzalez/pentry"
-license     = "MIT"
+name          = "pentry"
+version       = "0.1.0"
+authors       = ["chikuchikugonzalez <chikuchikugonzalez@gmail.com>"]
+description   = "Inspect Process ID and Executable File."
+documentation = "https://chikuchikugonzalez.github.io/pentry/pentry/"
+repository    = "https://github.com/chikuchikugonzalez/pentry"
+readme        = "README.md"
+license       = "MIT"
 
 [lib]
 name    = "pentry"
