@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["find",""]],"struct":[["Problem",""],["Process",""]]});
+initSidebarItems({"fn":[["current","Get Current Process Object."],["find","Find Process by Requested Process ID."]],"struct":[["Problem","Problem occurred in find processes routine."],["Process","Basic Process Object."]]});

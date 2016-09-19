@@ -47,30 +47,51 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-0' class='srclink' href='../src/pentry/src/lib.rs.html#4-76' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-0' class='srclink' href='../src/pentry/src/lib.rs.html#4-118' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>pentry is inspect Process Entry library inspired by mitchellh/go-ps.</p>
+
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>pentry</span>;
+
+<span class='kw'>let</span> <span class='ident'>pid</span>: <span class='ident'>i32</span>;
+<span class='kw'>unsafe</span> {
+    <span class='ident'>pid</span> <span class='op'>=</span> <span class='ident'>libc</span>::<span class='ident'>getpid</span>() <span class='kw'>as</span> <span class='ident'>i32</span>;
+}
+
+<span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Ok</span>(<span class='ident'>ps</span>) <span class='op'>=</span> <span class='ident'>pentry</span>::<span class='ident'>find</span>(<span class='ident'>pid</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;#{} {}&quot;</span>, <span class='ident'>ps</span>.<span class='ident'>pid</span>(), <span class='ident'>ps</span>.<span class='ident'>path</span>().<span class='ident'>unwrap</span>());
+}</pre>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Problem.html'
                                   title='pentry::Problem'>Problem</a></td>
                            <td class='docblock short'>
-                                
+                                <p>Problem occurred in find processes routine.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Process.html'
                                   title='pentry::Process'>Process</a></td>
                            <td class='docblock short'>
-                                
+                                <p>Basic Process Object.</p>
                            </td>
                        </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                        <tr class=' module-item'>
+                           <td><a class='fn' href='fn.current.html'
+                                  title='pentry::current'>current</a></td>
+                           <td class='docblock short'>
+                                <p>Get Current Process Object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='fn' href='fn.find.html'
                                   title='pentry::find'>find</a></td>
                            <td class='docblock short'>
-                                
+                                <p>Find Process by Requested Process ID.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>
