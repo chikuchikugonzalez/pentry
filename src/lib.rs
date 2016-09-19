@@ -10,16 +10,22 @@ use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
 pub struct Process {
-    pid:  i32,
+    pid: i32,
     ppid: i32,
     name: String,
     path: Option<String>,
 }
 
 impl Process {
-    pub fn pid(&self) -> i32 { return self.pid; }
-    pub fn ppid(&self) -> i32 { return self.ppid; }
-    pub fn name(&self) -> &str { return self.name.as_str(); }
+    pub fn pid(&self) -> i32 {
+        return self.pid;
+    }
+    pub fn ppid(&self) -> i32 {
+        return self.ppid;
+    }
+    pub fn name(&self) -> &str {
+        return self.name.as_str();
+    }
     pub fn path(&self) -> Option<&str> {
         if let Some(path) = self.path.as_ref() {
             return Some(path.as_str());
@@ -36,9 +42,7 @@ pub struct Problem {
 
 impl Problem {
     fn new(msg: &str) -> Problem {
-        return Problem{
-            message: msg.to_string(),
-        };
+        return Problem { message: msg.to_string() };
     }
 }
 
@@ -49,7 +53,9 @@ impl Display for Problem {
 }
 
 impl Error for Problem {
-    fn description(&self) -> &str { return self.message.as_str(); }
+    fn description(&self) -> &str {
+        return self.message.as_str();
+    }
 }
 
 

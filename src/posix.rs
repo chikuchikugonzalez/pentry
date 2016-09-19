@@ -8,8 +8,8 @@ use super::Process;
 use super::Problem;
 
 fn process(entry: &procinfo::pid::Stat) -> Process {
-    let mut ps = Process{
-        pid:  entry.pid,
+    let mut ps = Process {
+        pid: entry.pid,
         ppid: entry.ppid,
         name: entry.command.clone(),
         path: None,
@@ -28,7 +28,11 @@ fn process(entry: &procinfo::pid::Stat) -> Process {
 
 pub fn find(pid: i32) -> Result<Process, Problem> {
     match procinfo::pid::stat(pid) {
-        Ok(st) => { return Ok(process(&st)); },
-        Err(e) => { return Err(Problem::new(e.description())); }
+        Ok(st) => {
+            return Ok(process(&st));
+        }
+        Err(e) => {
+            return Err(Problem::new(e.description()));
+        }
     }
 }

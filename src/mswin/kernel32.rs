@@ -4,7 +4,7 @@
 
 extern crate libc;
 
-pub type HANDLE  = *mut libc::c_void;
+pub type HANDLE = *mut libc::c_void;
 pub type HMODULE = HANDLE;
 
 pub const MAX_PATH: usize = 260;
@@ -32,7 +32,7 @@ pub struct PROCESSENTRY32 {
 
 impl PROCESSENTRY32 {
     pub fn new() -> PROCESSENTRY32 {
-        return PROCESSENTRY32{
+        return PROCESSENTRY32 {
             size: ::std::mem::size_of::<PROCESSENTRY32>() as u32,
             usage: 0,
             pid: 0,
@@ -49,7 +49,7 @@ impl PROCESSENTRY32 {
 
 impl Clone for PROCESSENTRY32 {
     fn clone(&self) -> Self {
-        return PROCESSENTRY32{
+        return PROCESSENTRY32 {
             size: self.size,
             usage: self.usage,
             pid: self.pid,
@@ -67,11 +67,22 @@ impl Clone for PROCESSENTRY32 {
 #[link(name = "kernel32")]
 extern "stdcall" {
     pub fn GetLastError() -> u32;
-    pub fn FormatMessageW(flags: u32, src: *mut libc::c_void, message: u32, language: u32, buffer: *mut u16, size: u32, args: *mut libc::c_void) -> u32;
+    pub fn FormatMessageW(flags: u32,
+                          src: *mut libc::c_void,
+                          message: u32,
+                          language: u32,
+                          buffer: *mut u16,
+                          size: u32,
+                          args: *mut libc::c_void)
+                          -> u32;
     pub fn CreateToolhelp32Snapshot(flags: u32, pid: u32) -> HANDLE;
     pub fn CloseHandle(handle: HANDLE) -> i32;
     pub fn Process32FirstW(handle: HANDLE, entry: *mut PROCESSENTRY32) -> i32;
     pub fn Process32NextW(handle: HANDLE, entry: *mut PROCESSENTRY32) -> i32;
     pub fn OpenProcess(desired: u32, inherit: i32, pid: u32) -> HANDLE;
-    pub fn QueryFullProcessImageNameW(process: HANDLE, flags: u32, name: *mut u16, size: &mut u32) -> i32;
+    pub fn QueryFullProcessImageNameW(process: HANDLE,
+                                      flags: u32,
+                                      name: *mut u16,
+                                      size: &mut u32)
+                                      -> i32;
 }

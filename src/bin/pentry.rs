@@ -1,7 +1,6 @@
 // -*- coding: utf-8 -*-
 // vi: set sts=4 ts=4 sw=4 et ft=rust:
 
-//!
 //! pentry command is example of pentry library.
 //!
 
@@ -13,7 +12,8 @@ fn usage(prog: &str, opts: getopts::Options) {
     let brief = format!(r#"Show some process information.
 
 USAGE: {0} -h|--help
-       {0} [-P|--parent] [PID [PID...]]"#, prog);
+       {0} [-P|--parent] [PID [PID...]]"#,
+                        prog);
 
     print!("{}", opts.usage(&brief));
 }
@@ -22,7 +22,11 @@ fn show(entry: &pentry::Process, indent: &str) {
     if let Some(path) = entry.path() {
         println!("{:5}\t{:5}\t{}{}", entry.pid(), entry.ppid(), indent, path);
     } else {
-        println!("{:5}\t{:5}\t{}{}", entry.pid(), entry.ppid(), indent, entry.name());
+        println!("{:5}\t{:5}\t{}{}",
+                 entry.pid(),
+                 entry.ppid(),
+                 indent,
+                 entry.name());
     }
 }
 
@@ -52,10 +56,8 @@ fn main() {
 
     // Parse args.
     let matches = match opts.parse(&args[1..]) {
-        Ok(m) => { m }
-        Err(f) => {
-            panic!(f.to_string())
-        }
+        Ok(m) => m,
+        Err(f) => panic!(f.to_string()),
     };
 
     // Check flags.

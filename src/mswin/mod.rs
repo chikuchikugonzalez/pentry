@@ -9,8 +9,8 @@ use super::Process;
 use super::Problem;
 
 fn process(entry: &kernel32::PROCESSENTRY32) -> Process {
-    let mut ps = Process{
-        pid:  entry.pid  as i32,
+    let mut ps = Process {
+        pid: entry.pid as i32,
         ppid: entry.ppid as i32,
         name: String::from_utf16_lossy(&entry.file).trim_right_matches(0x00 as char).to_string(),
         path: None,
@@ -30,7 +30,8 @@ fn process(entry: &kernel32::PROCESSENTRY32) -> Process {
 
             // Check Result.
             if result != 0 {
-                let full = String::from_utf16_lossy(&name).trim_right_matches(0x00 as char).to_string();
+                let full =
+                    String::from_utf16_lossy(&name).trim_right_matches(0x00 as char).to_string();
                 ps.path = Some(full);
             }
         }
@@ -47,7 +48,13 @@ fn problem(code: u32) -> Problem {
         let mut buff: [u16; kernel32::MAX_PATH] = [0; kernel32::MAX_PATH];
         let size = kernel32::MAX_PATH as u32;
         let null = 0 as *mut libc::c_void;
-        kernel32::FormatMessageW(kernel32::FORMAT_MESSAGE_FROM_SYSTEM, null, code, 0, &mut buff[0], size, null);
+        kernel32::FormatMessageW(kernel32::FORMAT_MESSAGE_FROM_SYSTEM,
+                                 null,
+                                 code,
+                                 0,
+                                 &mut buff[0],
+                                 size,
+                                 null);
 
         // Convert
         message = String::from_utf16_lossy(&buff).trim_right_matches(0x00 as char).to_string();
@@ -109,7 +116,7 @@ pub fn find(pid: u32) -> Result<Process, Problem> {
                 }
             }
             return Err(problem(kernel32::ERROR_NOT_FOUND));
-        },
+        }
         Err(err) => {
             return Err(err);
         }
