@@ -18,8 +18,12 @@ USAGE: {0} -h|--help
     print!("{}", opts.usage(&brief));
 }
 
-fn show(entry: &pentry::ProcessEntry, indent: &str) {
-    println!("{:5}\t{:5}\t{}{}", entry.pid, entry.ppid, indent, entry.path);
+fn show(entry: &pentry::Process, indent: &str) {
+    if let Some(path) = entry.path() {
+        println!("{:5}\t{:5}\t{}{}", entry.pid(), entry.ppid(), indent, path);
+    } else {
+        println!("{:5}\t{:5}\t{}{}", entry.pid(), entry.ppid(), indent, entry.name());
+    }
 }
 
 fn head() {
@@ -29,7 +33,7 @@ fn head() {
 fn inspect(pid: i32, parent: bool) {
     let entry = pentry::find(pid).unwrap();
     if parent {
-        let entry2 = pentry::find(entry.ppid).unwrap();
+        let entry2 = pentry::find(entry.ppid()).unwrap();
         show(&entry2, "");
         show(&entry, "┗ ");
     } else {
