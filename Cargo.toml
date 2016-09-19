@@ -1,7 +1,26 @@
 [package]
+name        = "pentry"
+version     = "0.1.0"
+authors     = ["chikuchikugonzalez <chikuchikugonzalez@gmail.com>"]
+description = "Inspect executable of Process."
+repository  = "https://github.com/chikuchikugonzalez/pentry"
+license     = "MIT"
+
+[lib]
 name    = "pentry"
-version = "0.1.0"
-authors = ["chikuchikugonzalez <chikuchikugonzalez@gmail.com>"]
+path    = "src/lib.rs"
+test    = true
+doctest = true
+bench   = false
+doc     = true
+
+[[bin]]
+name    = "pentry"
+path    = "src/bin/pentry.rs"
+test    = false
+doctest = false
+bench   = false
+doc     = false
 
 [dependencies]
 libc    = "0.2.*"
